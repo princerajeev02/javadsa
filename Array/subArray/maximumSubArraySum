@@ -1,0 +1,92 @@
+//leet code 53
+// maximum sub array sum
+
+//brute
+
+public int maxSubArray(int[] nums) {
+    int n = nums.length;
+    int max = Integer.MIN_VALUE;
+
+    for(int i=0; i<n; i++){
+        for(int j=i; j<n; j++){
+             int sum = 0;
+             for(int k=i; k<=j; k++){
+                 sum = sum + nums[k];
+             }
+             if(sum>max){
+                 max = sum;
+             }
+        }
+    }
+
+    return max;
+}
+
+//better
+
+public int maxSubArray(int[] nums) {
+    int n = nums.length;
+    
+    int max = Integer.MIN_VALUE;
+
+    for(int i=0; i<n; i++){
+        int sum = 0;
+        for(int j=i; j<n; j++){
+            sum = sum + nums[j];
+            if(sum>max){
+                max = sum;
+            }
+        }
+    }
+
+    return max;
+}
+
+//optimal  by kadane's algorithm 
+
+public int maxSubArray(int[] nums) {
+    int n = nums.length;
+    
+    int max = Integer.MIN_VALUE;
+    int sum = 0;
+
+    for(int i=0; i<n; i++){
+        sum = sum + nums[i];
+        if(sum>max){
+            max = sum;
+        }
+        if(sum<0){
+            sum = 0;
+        }
+    }
+
+    return max;
+}
+
+//printing maximum sub array sum (by kadanes algo)
+
+int max = Integer.MIN_VALUE;
+        int sum = 0;
+        int start = -1;    
+        int end = -1;
+        
+        for(int i=0; i<n; i++){
+            if(sum==0){
+                start = i;
+            }
+            sum = sum + arr[i];
+            if(sum>max){
+                max = sum;
+                end = i;
+            }
+            if(sum<0){
+                sum=0;
+            }
+        }
+        
+        System.out.println(start);     //start and end point where maximum sub array found
+        System.out.println(end);
+        
+        for(int i=start; i<=end; i++){
+            System.out.print(arr[i]+" ");
+        }
